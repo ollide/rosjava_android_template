@@ -38,11 +38,14 @@ public class MainActivity extends RosActivity {
 
     @Override
     protected void init(NodeMainExecutor nodeMainExecutor) {
-        NodeMain node = new SimplePublisherNode();
-
         NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic(InetAddressFactory.newNonLoopback().getHostAddress());
         nodeConfiguration.setMasterUri(getMasterUri());
 
+        NodeMain node = new SimplePublisherNode();
         nodeMainExecutor.execute(node, nodeConfiguration);
+
+
+        NodeMain node2 = new SimpleSubscriberNode();
+        nodeMainExecutor.execute(node2, nodeConfiguration);
     }
 }
